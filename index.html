@@ -6,41 +6,50 @@
 <title>Prod-eng-core Pager</title>
 
 <script>
+function GetValue(where, what, instead)
+{
+  if (what in where) {
+    return where[what].$t;
+  }
+  return instead;
+}
+
 function SheetCallback(jsonIn) {
-console.log("Here is the callback");
-  document.getElementById("pager").innerHTML = "Hello World";
+  var entries = jsonIn.feed.entry;
+  var pager = "";
+
+  var past = GetValue(entries[0], "gsx$past", 0); 
+  var future = GetValue(entries[0], "gsx$future", 0); 
+
+  pager += '<body>';
+  pager += "<h3>Prod-eng-core pager statistics for " + (parseInt(past) + parseInt(future)) + " days (" + past + " past, " + future + " future)";
+  pager += '</h3>';
+  pager += '<table>';
+  pager += ' <thead>';
+  pager += '  <tr>';
+  pager += '    <th>Who</th>';
+  pager += '    <th>On-call hours</th>';
+  pager += '    <th>Days with on-call</th>';
+  pager += '  </tr>';
+  pager += ' </thead>';
+  pager += '<tbody>';
+
+  for (var row = 3; row < entries.length; row += 1) {
+    pager += "<tr><td data-label=Who>" + GetValue(entries[row], "gsx$header", "");
+		pager += "</td><td data-label=Hours>" + GetValue(entries[row], "gsx$past", "");
+		pager += "</td><td data-label=Days>" + GetValue(entries[row], "gsx$future", "");
+		pager += "</td></tr>\n";
+  }
+
+  pager += '</tbody>';
+  pager += '</table>';
+
+  document.getElementById("pager").innerHTML = pager;
 }
 </script>
 </head>
 
 <body>
-<h3>Prod-eng-core pager statistics for 60 days (30 past, 30 future)
-</h3>
-
-<table>
- <thead>
-  <tr>
-    <th>Who</th>
-    <th>On-call hours</th>
-    <th>Days with on-call</th>
-  </tr>
- </thead>
-<tbody>
-  <tr><td data-label=Who>Scott Francis</td><td data-label=Hours>339</td><td data-label=Days>17</td></tr>
-  <tr><td data-label=Who>Daniella Niyonkuru</td><td data-label=Hours>337</td><td data-label=Days>16</td></tr>
-  <tr><td data-label=Who>Hormoz Kheradmand</td><td data-label=Hours>275</td><td data-label=Days>18</td></tr>
-  <tr><td data-label=Who>David Radcliffe</td><td data-label=Hours>206</td><td data-label=Days>12</td></tr>
-  <tr><td data-label=Who>Justin Li</td><td data-label=Hours>180</td><td data-label=Days>12</td></tr>
-  <tr><td data-label=Who>Florian Weingarten</td><td data-label=Hours>150</td><td data-label=Days>13</td></tr>
-  <tr><td data-label=Who>Forrest Jordan</td><td data-label=Hours>25</td><td data-label=Days>10</td></tr>
-  <tr><td data-label=Who>Simon Eskildsen</td><td data-label=Hours>14</td><td data-label=Days>3</td></tr>
-  <tr><td data-label=Who>Moe Chaieb</td><td data-label=Hours>9</td><td data-label=Days>1</td></tr>
-  <tr><td data-label=Who>Kir Shatrov</td><td data-label=Hours>5</td><td data-label=Days>1</td></tr>
-  <tr><td data-label=Who>Milan Sreckovic</td><td data-label=Hours>2</td><td data-label=Days>1</td></tr>
-</tbody>
-</table>
-
 <div id="pager"></div>
-
-<script src=https://spreadsheets.google.com/feeds/list/1pWxS_UtkdZoN0I-7_E52ro7xF-iCKNqRq39Ps6YgBB0/2/public/values?alt=json-in-script&callback=SheetCallback"></script>
+<script src="https://spreadsheets.google.com/feeds/list/1pWxS_UtkdZoN0I-7_E52ro7xF-iCKNqRq39Ps6YgBB0/2/public/values?alt=json-in-script&callback=SheetCallback"></script>
 </body> </html>
