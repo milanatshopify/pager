@@ -22,7 +22,8 @@ function DisplaySheet(feed) {
   pager += ' <thead>';
   pager += '  <tr>';
   pager += '    <th>Who</th>';
-  pager += '    <th>On-call hours</th>';
+  pager += '    <th>Past on-call hours </th>';
+  pager += '    <th>Scheduled on-call hours </th>';
   pager += '    <th>Days with on-call</th>';
   pager += '  </tr>';
   pager += ' </thead>';
@@ -31,8 +32,9 @@ function DisplaySheet(feed) {
   // Magic number 3
   for (var row = 3; row < entries.length; row += 1) {
     pager += "<tr><td data-label=Who>" + GetValue(entries[row], "gsx$header", "");
-    pager += "</td><td data-label=Hours>" + GetValue(entries[row], "gsx$past", "");
-    pager += "</td><td data-label=Days>" + GetValue(entries[row], "gsx$future", "");
+    pager += "</td><td data-label=Past>" + GetValue(entries[row], "gsx$past", "");
+    pager += "</td><td data-label=Scheduled>" + GetValue(entries[row], "gsx$future", "");
+    pager += "</td><td data-label=Days>" + GetValue(entries[row], "gsx$days", "");
     pager += "</td></tr>\n";
   }
 
