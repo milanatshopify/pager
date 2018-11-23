@@ -22,9 +22,9 @@ function DisplaySheet(feed) {
   pager += ' <thead>';
   pager += '  <tr>';
   pager += '    <th>Who</th>';
-  pager += '    <th>Past on-call hours </th>';
-  pager += '    <th>Scheduled on-call hours </th>';
-  pager += '    <th>Days with on-call</th>';
+  pager += '    <th>Past (hours) </th>';
+  pager += '    <th>Scheduled (hours) </th>';
+  pager += '    <th>Days on-call</th>';
   pager += '  </tr>';
   pager += ' </thead>';
   pager += '<tbody>';
