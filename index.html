@@ -8,14 +8,20 @@
 
 <script src="js/pager.js"></script>
 <script>
-function Callback(jsonIn) {
-  document.getElementById("pager").innerHTML = DisplaySheet(jsonIn.feed);
+function CallbackCore(jsonIn) {
+  document.getElementById("Prod-eng-core").innerHTML = DisplaySheet("Prod-eng-core", jsonIn.feed);
+}
+function CallbackJobs(jsonIn) {
+  document.getElementById("Job-Patterns").innerHTML = DisplaySheet("Job-Patterns", jsonIn.feed);
 }
 </script>
 </head>
 
 <body>
-<div id="pager"></div>
-<script src="https://spreadsheets.google.com/feeds/list/1pWxS_UtkdZoN0I-7_E52ro7xF-iCKNqRq39Ps6YgBB0/2/public/values?alt=json-in-script&callback=Callback"></script>
+<div id="Prod-eng-core"></div>
+<div id="Job-Patterns"></div>
+<script src="https://spreadsheets.google.com/feeds/list/1pWxS_UtkdZoN0I-7_E52ro7xF-iCKNqRq39Ps6YgBB0/2/public/values?alt=json-in-script&callback=Ca
+llbackCore"></script>
+<script src="https://spreadsheets.google.com/feeds/list/1pWxS_UtkdZoN0I-7_E52ro7xF-iCKNqRq39Ps6YgBB0/4/public/values?alt=json-in-script&callback=CallbackJobs"></script>
 </body>
 </html>

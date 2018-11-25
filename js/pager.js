@@ -8,7 +8,7 @@ function GetValue(where, what, instead)
 
 var MAP = ["gsx$header", "gsx$past", "gsx$future", "gsx$days"];
 
-function DisplaySheet(feed) {
+function DisplaySheet(which, feed) {
   var entries = feed.entry;
   var pager = "";
 
@@ -18,7 +18,7 @@ function DisplaySheet(feed) {
   var future = GetValue(entries[0], "gsx$future", "");
 
   pager += "<body>";
-  pager += "<h3>" + days + " days of Prod-eng-core pager<br>" + past + " through " + future + "</h3>";
+  pager += "<h3>" + days + " days of " + which + " pager<br>" + past + " through " + future + "</h3>";
 
   pager += "<table>";
   pager += " <thead>";
