@@ -6,6 +6,8 @@ function GetValue(where, what, instead)
   return instead;
 }
 
+var MAP = ["gsx$header", "gsx$past", "gsx$future", "gsx$days"];
+
 function DisplaySheet(feed) {
   var entries = feed.entry;
   var pager = "";
@@ -15,31 +17,32 @@ function DisplaySheet(feed) {
   var past = GetValue(entries[0], "gsx$past", "");
   var future = GetValue(entries[0], "gsx$future", "");
 
-  pager += '<body>';
+  pager += "<body>";
   pager += "<h3>" + days + " days of Prod-eng-core pager<br>" + past + " through " + future + "</h3>";
 
-  pager += '<table>';
-  pager += ' <thead>';
-  pager += '  <tr>';
-  pager += '    <th>Who</th>';
-  pager += '    <th>Past (hours) </th>';
-  pager += '    <th>Scheduled (hours) </th>';
-  pager += '    <th>Days on-call</th>';
-  pager += '  </tr>';
-  pager += ' </thead>';
-  pager += '<tbody>';
+  pager += "<table>";
+  pager += " <thead>";
+  pager += "  <tr>";
+  for (var col = 0; col < 4; col += 1) {
+    // Magic number 1
+    pager += "    <th>" + GetValue(entries[1], MAP[col], "") + "</th>";
+  }
+  pager += "  </tr>";
+  pager += " </thead>";
+  pager += "<tbody>";
 
-  // Magic number 3
-  for (var row = 3; row < entries.length; row += 1) {
-    pager += "<tr><td data-label=Who>" + GetValue(entries[row], "gsx$header", "");
-    pager += "</td><td data-label=Past>" + GetValue(entries[row], "gsx$past", "");
-    pager += "</td><td data-label=Scheduled>" + GetValue(entries[row], "gsx$future", "");
-    pager += "</td><td data-label=Days>" + GetValue(entries[row], "gsx$days", "");
-    pager += "</td></tr>\n";
+  // Magic number 2
+  for (var row = 2; row < entries.length; row += 1) {
+    pager += "  <tr>";
+    for (var col = 0; col < 4; col += 1) {
+      // Maybe cache entries[1] results
+      pager += "  <td data-label=\"" + GetValue(entries[1], MAP[col], "") + "\">" + GetValue(entries[row], MAP[col], "") + "</td>\n";
+    }
+    pager += "  </tr>";
   }
 
-  pager += '</tbody>';
-  pager += '</table>';
+  pager += "</tbody>";
+  pager += "</table>";
 
   return pager;
 }
