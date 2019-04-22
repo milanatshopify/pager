@@ -4,24 +4,28 @@
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Prod-eng-core Pager</title>
+<title>Service Patterns Pagers</title>
 
 <script src="js/pager.js"></script>
 <script>
 function CallbackCore(jsonIn) {
-  document.getElementById("Prod-eng-core").innerHTML = DisplaySheet("Prod-eng-core", jsonIn.feed);
+  document.getElementById("Pods").innerHTML = DisplaySheet("Pods", jsonIn.feed);
 }
 function CallbackJobs(jsonIn) {
   document.getElementById("Job-Patterns").innerHTML = DisplaySheet("Job-Patterns", jsonIn.feed);
+}
+function CallbackComm(jsonIn) {
+  document.getElementById("Service-Communication").innerHTML = DisplaySheet("Service-Communication", jsonIn.feed);
 }
 </script>
 </head>
 
 <body>
-<div id="Prod-eng-core"></div>
+<div id="Pods"></div>
 <div id="Job-Patterns"></div>
-<script src="https://spreadsheets.google.com/feeds/list/1pWxS_UtkdZoN0I-7_E52ro7xF-iCKNqRq39Ps6YgBB0/2/public/values?alt=json-in-script&callback=Ca
-llbackCore"></script>
+<div id="Service-Communication"></div>
+<script src="https://spreadsheets.google.com/feeds/list/1pWxS_UtkdZoN0I-7_E52ro7xF-iCKNqRq39Ps6YgBB0/2/public/values?alt=json-in-script&callback=CallbackCore"></script>
 <script src="https://spreadsheets.google.com/feeds/list/1pWxS_UtkdZoN0I-7_E52ro7xF-iCKNqRq39Ps6YgBB0/4/public/values?alt=json-in-script&callback=CallbackJobs"></script>
+<script src="https://spreadsheets.google.com/feeds/list/1pWxS_UtkdZoN0I-7_E52ro7xF-iCKNqRq39Ps6YgBB0/6/public/values?alt=json-in-script&callback=CallbackComm"></script>
 </body>
 </html>
